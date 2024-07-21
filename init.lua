@@ -37,3 +37,6 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+-- custom settings:
+vim.opt.clipboard = 'unnamedplus'

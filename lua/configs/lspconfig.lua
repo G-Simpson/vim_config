@@ -21,3 +21,14 @@ lspconfig.tsserver.setup {
   on_init = on_init,
   capabilities = capabilities,
 }
+
+lspconfig.solargraph.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  settings = {
+    solargraph = {
+      diagnostics = false,
+    }
+  }
+}
