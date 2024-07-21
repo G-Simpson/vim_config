@@ -1,7 +1,7 @@
 local M = {}
 
 M.ui = {
-	theme = "aquarium",
+	theme = "github_dark",
 	-- hl_override = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },

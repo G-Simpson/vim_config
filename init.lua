@@ -40,3 +40,5 @@ end)
 
 -- custom settings:
 vim.opt.clipboard = 'unnamedplus'
+
+       
