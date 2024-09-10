@@ -46,11 +46,40 @@ require('telescope').setup{
     file_ignore_patterns = {"doc", "node_modules", ".git", "dist", "build"}
   }
 }
- require("nvim-tree").setup({
-    view = {
-      width = 60,
-    }
-  })      
+
+require("nvim-tree").setup({
+  view = {
+    adaptive_size = true
+  },
+  update_focused_file = {
+    enable = true,   -- Enable NvimTree to update the focused file
+    update_cwd = true,  -- Update the current working directory to match the file
+  },
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
+  actions = {
+    open_file = {
+      resize_window = true,
+    },
+  },
+})      
+-- Automatically change to the project root based on certain files (.git)
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = "*",
+  callback = function()
+    local root_dir = vim.fn.finddir(".git", ".;")
+    if root_dir ~= "" then
+      -- This ensures the root directory is the parent of .git
+      local project_root = vim.fn.fnamemodify(root_dir, ":p:h:h")
+      vim.cmd("cd " .. project_root)
+    end
+  end,
+})
+
+
+
+
+
 local set_keymap = vim.api.nvim_set_keymap
 
 -- Create a custom function to open terminal in a vertical split with half screen width
@@ -63,3 +92,37 @@ end
 
 -- Map <leader>h to the custom function
 set_keymap('n', '<leader>h', ':lua OpenHalfWidthTerminal()<CR>', { noremap = true, silent = true })
+-- set file type on buffer creation and reading
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.slim" },
+  command = "set ft=slim",
+})
+
+
+require('telescope').setup {
+  defaults = {
+    -- other settings
+  },
+  pickers = {
+    find_files = {
+      hidden = true,  -- Include hidden files by default
+    },
+  },
+}
+-- open terminal without line numbers
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.wo.number = false    -- Disable line numbers
+    vim.wo.relativenumber = false  -- Disable relative line numbers
+  end,
+})
+
+-- open buffers with relative line numbers
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    vim.wo.relativenumber = true    -- Enable relative line numbers
+    vim.wo.number = true            -- Also keep absolute number on the current line
+  end,
+})
