@@ -26,10 +26,10 @@ return {
    	},
    },
     -- Slim syntax highlighting
-    {
-      "slim-template/vim-slim",
-      ft = slim,
-    },
+   {
+     "slim-template/vim-slim",
+      lazy = false,
+   },
   --
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",

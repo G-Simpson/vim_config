@@ -92,11 +92,6 @@ end
 
 -- Map <leader>h to the custom function
 set_keymap('n', '<leader>h', ':lua OpenHalfWidthTerminal()<CR>', { noremap = true, silent = true })
--- set file type on buffer creation and reading
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "*.slim" },
-  command = "set ft=slim",
-})
 
 
 require('telescope').setup {
@@ -126,3 +121,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.wo.number = true            -- Also keep absolute number on the current line
   end,
 })
+
+vim.cmd([[autocmd BufNewFile,BufRead *.html.slim set filetype=slim]])
+
+vim.cmd([[
+  augroup slim_filetype
+    autocmd!
+    autocmd BufNewFile,BufRead *.html.slim set filetype=slim
+  augroup END
+]])
