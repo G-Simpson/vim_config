@@ -122,11 +122,20 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
-vim.cmd([[autocmd BufNewFile,BufRead *.html.slim set filetype=slim]])
+-- set slim file types
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.slim" },
+  command = "set ft=slim",
+})
 
-vim.cmd([[
-  augroup slim_filetype
-    autocmd!
-    autocmd BufNewFile,BufRead *.html.slim set filetype=slim
-  augroup END
-]])
+-- Set fileformat to unix for all files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*",
+  command = "set fileformat=unix",
+})
+
+vim.o.foldmethod = 'indent'  -- Or 'syntax', 'expr' for Treesitter
+vim.o.foldlevel = 99
+vim.o.foldenable = true
+
+
