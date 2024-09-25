@@ -5,14 +5,15 @@ M.ui = {
 	hl_override = {
       ["kyazdani42/nvim-tree.lua"] = {
          view = {
-            width = 200,  -- Set this to your desired width
+            width = 200,  
          },
       },
    },
-  -- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+  statusline = {
+    theme = "minimal",
+    separator_style = "round",
+    overriden_modules = nil,
+  },
 }
 
 return M
