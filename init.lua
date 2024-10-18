@@ -138,4 +138,3 @@ vim.o.foldmethod = 'indent'  -- Or 'syntax', 'expr' for Treesitter
 vim.o.foldlevel = 99
 vim.o.foldenable = true
 
-
